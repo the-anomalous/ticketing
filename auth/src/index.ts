@@ -1,4 +1,3 @@
-import 'tsconfig-paths/register';
 import mongoose from 'mongoose'  
 import {app} from '@/app'
 
