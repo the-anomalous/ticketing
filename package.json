@@ -1,5 +1,5 @@
 {
   "dependencies": {
-    "@ad-tickets/commonlib": "^1.0.7"
+    "@ad-tickets/commonlib": "^1.0.11"
   }
 }
