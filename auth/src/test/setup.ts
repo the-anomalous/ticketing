@@ -1,7 +1,7 @@
 import {MongoMemoryServer} from 'mongodb-memory-server'
 import mongoose from 'mongoose'
-import {app} from '@/app'
 
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
 let mongodb:any; 
 
 beforeAll(async () => {

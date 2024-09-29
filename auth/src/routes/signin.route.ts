@@ -1,5 +1,5 @@
-import BadRequestError from "@/errors/bad-request.error";
-import validateRequest from "@/middleware/validate-request.middleware";
+import {BadRequestError} from "@ad-tickets/commonlib";
+import {validateRequest} from "@ad-tickets/commonlib";
 import { User } from "@/models/user.model";
 import PasswordManager from "@/services/password.hashing";
 import express, { Request, Response } from "express";

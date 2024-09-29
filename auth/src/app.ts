@@ -9,8 +9,8 @@ import { signinRouter } from '@/routes/signin.route'
 import { signoutRouter } from '@/routes/signout.route'
 import { signupRouter } from '@/routes/signup.route'
 
-import errorHandler from '@/middleware/error-handler.middleware';
-import NotFoundError from '@/errors/not-found.error';
+import {errorHandler} from '@ad-tickets/commonlib';
+import {NotFoundError} from '@ad-tickets/commonlib';
 
 const app = express() 
 

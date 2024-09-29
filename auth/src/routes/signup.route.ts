@@ -1,5 +1,5 @@
-import BadRequestError from "@/errors/bad-request.error";
-import validateRequest from "@/middleware/validate-request.middleware";
+import {BadRequestError} from "@ad-tickets/commonlib";
+import {validateRequest} from "@ad-tickets/commonlib";
 import { User } from "@/models/user.model";
 import express, { Request, Response } from "express";
 import { body } from "express-validator";
