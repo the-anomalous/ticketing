@@ -3,7 +3,7 @@
   "version": "1.0.0",
   "main": "index.js",
   "scripts": {
-    "start": "nodemon ./src/index.ts",
+    "start": "nodemon -r tsconfig-paths/register ./src/index.ts",
     "test": "jest --watchAll --no-cache --config ./jest.config.js",
     "lint": "eslint"
   },
