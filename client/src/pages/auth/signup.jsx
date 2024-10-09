@@ -4,20 +4,32 @@ import { useState } from 'react';
 const signup = () => {
   const [email, setEmail] = useState();
   const [password, setPassword] = useState();
+  const [errors, setErrors] = useState([]);
 
   const clearForm = () => {
     setEmail(() => '');
-    setPassword(() => ' ');
+    setPassword(() => '');
   };
 
   const onSubmit = async (e) => {
     e.preventDefault();
-    const response = await axios.post('/api/users/signup', {
-      email,
-      password,
-    });
+    setErrors(() => []);
 
-    console.log(response.data);
+    try {
+      const response = await axios.post('/api/users/signup', {
+        email,
+        password,
+      });
+
+      console.log(response.data);
+    } catch (err) {
+      err.response.data.map((message) => {
+        setErrors((prevState) => prevState.push(message));
+      });
+      console.log(errors);
+
+      console.log(err.response.data);
+    }
 
     clearForm();
   };
@@ -25,6 +37,11 @@ const signup = () => {
   return (
     <form onSubmit={onSubmit}>
       <h1>Sign Up form</h1>
+      <div className="">
+        {errors.map((err) => {
+          <li key={err}>err</li>;
+        })}
+      </div>
       <div className="flex flex-col gap-1">
         <label htmlFor="email">Email</label>
         <input
