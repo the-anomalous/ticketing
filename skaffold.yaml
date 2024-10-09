@@ -14,13 +14,13 @@ build:
         dockerfile: Dockerfile
       sync:
         manual:
-          - src: './**/*.ts'
+          - src: "./**/*.ts"
             dest: .
-    - image: anomalous004/client
-      context: client
-      docker:
-        dockerfile: Dockerfile
-      sync:
-        manual:
-          - src: '**/*.js'
-            dest: .
+    # - image: anomalous004/client
+    #   context: client
+    #   docker:
+    #     dockerfile: Dockerfile
+    #   sync:
+    #     manual:
+    #       - src: '**/*.js'
+    #         dest: .
