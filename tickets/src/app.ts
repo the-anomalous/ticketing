@@ -1,9 +1,8 @@
 import express from 'express';
 import 'express-async-errors';
-
 import cookieSession from 'cookie-session';
+import { NotFoundError, errorHandler } from '@ad-tickets/commonlib';
 
-import { errorHandler, NotFoundError } from '@ad-tickets/commonlib';
 import { createTicketRouter } from '@/routes/new.route';
 
 const app = express();
