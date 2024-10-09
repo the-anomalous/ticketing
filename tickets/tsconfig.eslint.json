@@ -6,6 +6,7 @@
     "src/**/**/*.test.ts",
     "src/**/*.unit.test.ts",
     "__tests__/**/*.uint.test.ts",
-    ".eslintrc.cjs"
+    ".eslintrc.cjs",
+    "jest.config.js"
   ]
 }
