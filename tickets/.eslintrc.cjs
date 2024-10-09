@@ -12,6 +12,9 @@ module.exports = {
     'plugin:eslint-comments/recommended',
     'plugin:jest/recommended',
     'plugin:promise/recommended',
+    'plugin:import/errors',
+    'plugin:import/warnings',
+    'plugin:import/typescript',
     'prettier',
   ],
   parser: '@typescript-eslint/parser',
@@ -57,7 +60,12 @@ module.exports = {
     ],
     'import/newline-after-import': 'error',
     'import/no-duplicates': 'error',
-    'import/no-unresolved': 'error',
+    'import/no-unresolved': [
+      'error',
+      {
+        ignore: ['^@/.+'],
+      },
+    ],
     'import/no-cycle': 'warn',
   },
   settings: {
@@ -65,6 +73,7 @@ module.exports = {
       typescript: {
         alwaysTryTypes: true,
         project: './tsconfig.json',
+        tsconfigRootDir: __dirname,
       },
     },
   },

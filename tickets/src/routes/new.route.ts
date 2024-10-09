@@ -1,6 +1,6 @@
-import app from 'express';
+import { Router } from 'express';
 
-const router = app.Router();
+const router = Router();
 
 router.get('/api/tickets/', (req, res) => {
   res.status(201).send({});

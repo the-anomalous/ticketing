@@ -1,4 +1,4 @@
-import express from 'express';
+import express, { json } from 'express';
 import 'express-async-errors';
 import cookieSession from 'cookie-session';
 import { NotFoundError, errorHandler } from '@ad-tickets/commonlib';
@@ -14,7 +14,7 @@ app.use(
     secure: process.env.Node_ENV !== 'test',
   })
 );
-app.use(express.json());
+app.use(json());
 
 app.use(createTicketRouter);
 
