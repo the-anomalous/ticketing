@@ -1,24 +1,23 @@
-import request from 'supertest';
-
-import app from '@/app';
+import jwt from 'jsonwebtoken';
 
 const signin = async () => {
   const email = 'test@test.com';
   const password = '12345';
+  const JWT_KEY = 'asdf';
+  const id = 'asdasndj12213';
 
-  const authResponse = await request(app)
-    .post('/api/users/signup')
-    .send({
+  const token = jwt.sign(
+    {
       email,
-      password,
-    })
-    .expect(201);
+      id,
+    },
+    JWT_KEY
+  );
+  const session = { jwt: token };
+  const sessionJSON = JSON.stringify(session);
+  const sessionBase64 = Buffer.from(sessionJSON).toString('base64');
 
-  const cookie = authResponse.get('Set-Cookie');
-
-  if (!cookie) throw new Error('Cookie not defined');
-
-  return { cookie, email, password };
+  return `session=${sessionBase64}`;
 };
 
 export { signin };

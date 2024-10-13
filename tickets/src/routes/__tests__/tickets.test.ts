@@ -2,13 +2,13 @@ import request from 'supertest';
 
 import app from '@/app';
 
-it('checks route handler visiting api/tickets for post req', async () => {
+it('checks if api/tickets exists for post req', async () => {
   const response = await request(app).post('/api/tickets').send({});
 
   expect(response.status).not.toEqual(404);
 });
 
-it('can only be accessed if user is logged in', () => {});
+it('returns 401, user not signed in', () => {});
 
 it('returns error ig title is invalid', () => {});
 
