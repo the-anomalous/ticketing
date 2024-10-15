@@ -2,6 +2,7 @@ import request from 'supertest';
 
 import app from '@/app';
 import { signin } from '@/test/authHelper';
+import { Tickets } from '@/models/tickets.model';
 
 it('checks if api/tickets exists for post req', async () => {
   const response = await request(app).post('/api/tickets').send({});
@@ -61,9 +62,19 @@ it('returns error if price is invalid', async () => {
 });
 
 it('creates ticket with valid inputs', async () => {
+  let tickets = await Tickets.find({});
+  expect(tickets.length).toEqual(0);
+  const title = 'ticket';
+  const price = 32;
+
   await request(app)
-    .post('api/tickets')
+    .post('/api/tickets/')
     .set('Cookie', signin())
-    .send({ title: 'asdf', price: 122 })
+    .send({ title, price })
     .expect(201);
+
+  tickets = await Tickets.find({});
+  expect(tickets.length).toEqual(1);
+  expect(tickets[0].title).toEqual(title);
+  expect(tickets[0].price).toEqual(price);
 });

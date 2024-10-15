@@ -1,3 +1,4 @@
+import { Tickets } from '@/models/tickets.model';
 import { requireAuth, validateRequest } from '@ad-tickets/commonlib';
 import { Request, Response, Router } from 'express';
 import { body } from 'express-validator';
@@ -5,6 +6,7 @@ import { body } from 'express-validator';
 const router = Router();
 
 router.get('/api/tickets/', (req, res) => {
+  console.log('Creating ticket with:');
   res.status(201).send('tickets');
 });
 
@@ -16,8 +18,22 @@ router.post(
     body('price').isFloat({ gt: 0 }).withMessage('Invalid price'),
   ],
   validateRequest,
-  (req: Request, res: Response) => {
-    res.status(201).send({});
+  async (req: Request, res: Response) => {
+    const { title, price } = req.body;
+    console.log(req.currentUser);
+
+    try {
+      const newTicket = Tickets.build({
+        title,
+        price,
+        userId: 'asdf',
+      });
+      await newTicket.save();
+      return res.status(201).send(newTicket);
+    } catch (err) {
+      console.log(err);
+    }
+    return res.status(201).send({});
   }
 );
 
