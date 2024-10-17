@@ -5,11 +5,6 @@ import { body } from 'express-validator';
 
 const router = Router();
 
-router.get('/api/tickets/', (req, res) => {
-  console.log('Creating ticket with:');
-  res.status(201).send('tickets');
-});
-
 router.post(
   '/api/tickets/',
   requireAuth,
