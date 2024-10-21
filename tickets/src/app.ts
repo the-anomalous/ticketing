@@ -6,6 +6,7 @@ import { NotFoundError, errorHandler } from '@ad-tickets/commonlib';
 import { createTicketRouter } from '@/routes/tickets.route';
 import { showTicketRouter } from '@/routes/show.route';
 import { indexTicketsRouter } from '@/routes/index.route';
+import { updateTicketsRouter } from './routes/update.route';
 
 const app = express();
 
@@ -21,6 +22,7 @@ app.use(json());
 app.use(createTicketRouter);
 app.use(showTicketRouter);
 app.use(indexTicketsRouter);
+app.use(updateTicketsRouter);
 
 app.all('*', () => {
   throw new NotFoundError();
