@@ -45,3 +45,24 @@ it('returns 401; if user does not own the ticket', async () => {
     })
     .expect(401);
 });
+
+it('returns 400; price and title is invalid', async () => {
+  const id = new mongoose.Types.ObjectId().toHexString();
+  await request(app)
+    .put(`/api/tickets/${id}`)
+    .set('Cookie', signin())
+    .send({
+      title: '',
+      price: 20,
+    })
+    .expect(422);
+
+  await request(app)
+    .put(`/api/tickets/${id}`)
+    .set('Cookie', signin())
+    .send({
+      title: 'ticket',
+      price: -10,
+    })
+    .expect(422);
+});
