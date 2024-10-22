@@ -25,3 +25,23 @@ it('returns 401; not logged in', async () => {
     })
     .expect(401);
 });
+
+it('returns 401; if user does not own the ticket', async () => {
+  const id = new mongoose.Types.ObjectId().toHexString();
+  const response = await request(app)
+    .post('/api/tickets/')
+    .set('Cookie', signin())
+    .send({
+      title: 'ticket',
+      price: 20,
+    });
+
+  await request(app)
+    .put(`/api/tickets/${response.body.id}`)
+    .set('Cookie', signin())
+    .send({
+      title: 'ticket',
+      price: 20,
+    })
+    .expect(401);
+});

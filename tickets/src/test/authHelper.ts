@@ -1,10 +1,10 @@
 import jwt from 'jsonwebtoken';
+import mongoose from 'mongoose';
 
 const signin = () => {
   const email = 'test@test.com';
-  const password = '12345';
   const JWT_KEY = 'asdf';
-  const id = 'asdasndj12213';
+  const id = new mongoose.Types.ObjectId().toHexString();
 
   const token = jwt.sign(
     {
