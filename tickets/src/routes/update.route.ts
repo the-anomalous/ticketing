@@ -37,7 +37,7 @@ router.put(
     });
     await ticket.save();
 
-    res.status(201).send('OK');
+    res.status(201).send(ticket);
   }
 );
 
