@@ -1,5 +1,6 @@
 import { Tickets } from '@/models/tickets.model';
 import {
+  currentUser,
   NotAuthorizedError,
   NotFoundError,
   requireAuth,
@@ -13,6 +14,7 @@ const router = Router();
 router.put(
   '/api/tickets/:id',
   requireAuth,
+  currentUser,
   [
     body('title').notEmpty().withMessage('Title is required'),
     body('price').isFloat({ gt: 0 }).withMessage('price is invalid'),
@@ -20,15 +22,22 @@ router.put(
   validateRequest,
   async (req: Request, res: Response) => {
     const ticket = await Tickets.findById(req.params.id);
+
     if (!ticket) {
       throw new NotFoundError();
     }
 
-    if (ticket.userId !== req.params.id) {
+    if (ticket.userId !== req.currentUser!.id) {
       throw new NotAuthorizedError();
     }
 
-    res.send('OK');
+    ticket.set({
+      title: req.body.title,
+      price: req.body.price,
+    });
+    await ticket.save();
+
+    res.status(201).send('OK');
   }
 );
 

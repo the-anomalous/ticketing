@@ -46,11 +46,13 @@ it('returns 401; if user does not own the ticket', async () => {
     .expect(401);
 });
 
-it('returns 400; price and title is invalid', async () => {
+it('returns 422; price and title is invalid', async () => {
   const id = new mongoose.Types.ObjectId().toHexString();
+  const cookie = signin();
+
   await request(app)
     .put(`/api/tickets/${id}`)
-    .set('Cookie', signin())
+    .set('Cookie', cookie)
     .send({
       title: '',
       price: 20,
@@ -59,10 +61,40 @@ it('returns 400; price and title is invalid', async () => {
 
   await request(app)
     .put(`/api/tickets/${id}`)
-    .set('Cookie', signin())
+    .set('Cookie', cookie)
     .send({
       title: 'ticket',
       price: -10,
     })
     .expect(422);
+});
+
+it('returns 200, updated ticket', async () => {
+  const cookie = signin();
+
+  const response = await request(app)
+    .post('/api/tickets')
+    .set('Cookie', cookie)
+    .send({
+      title: 'ticket',
+      price: 10,
+    })
+    .expect(201);
+
+  await request(app)
+    .put(`/api/tickets/${response.body.id}`)
+    .set('Cookie', cookie)
+    .send({
+      title: 'ticket100',
+      price: 100,
+    })
+    .expect(201);
+
+  const ticketResponse = await request(app)
+    .get(`/api/tickets/${response.body.id}`)
+    .set('Cookie', cookie)
+    .expect(200);
+
+  expect(ticketResponse.body.title).toEqual('ticket100');
+  expect(ticketResponse.body.price).toEqual(100);
 });
